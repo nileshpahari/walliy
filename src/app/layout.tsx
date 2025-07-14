@@ -29,7 +29,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable}`}
+        suppressHydrationWarning={true}
       >
         <ThemeProvider
           attribute="class"
@@ -37,7 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="max-w-[75%] m-auto">
+          <div className="md:max-w-[80%] m-auto">
             <Navbar />
             {children}
             <Toaster/>

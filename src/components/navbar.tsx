@@ -1,4 +1,4 @@
-import { ThemeToggler } from "./ThemeToggler";
+import { ThemeToggler } from "./theme-toggler";
 import Logo from "@/components/logo";
 export function Navbar() {
   return (

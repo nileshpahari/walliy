@@ -64,6 +64,7 @@ export default function WalletOnboarding() {
     getMnemonic().then((mnemonic) => {
       setMnemonic(mnemonic);
     });
+    setVerificationIndices(getVerificationIndices());
   }, []);
   const stages = {
     welcome: 1,
@@ -106,7 +107,7 @@ export default function WalletOnboarding() {
           Welcome to SecureWallet
         </CardTitle>
         <CardDescription className="text-base">
-          Your gateway to the decentralized web. Let's get you set up with a
+          Your gateway to the decentralized web. Let&apos;s get you set up with a
           secure digital wallet.
         </CardDescription>
       </CardHeader>
@@ -178,7 +179,7 @@ export default function WalletOnboarding() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Create Your Wallet</CardTitle>
         <CardDescription>
-          We'll generate a secure wallet for you with a unique recovery phrase.
+          We&apos;ll generate a secure wallet for you with a unique recovery phrase.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -241,7 +242,7 @@ export default function WalletOnboarding() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Backup Your Recovery Phrase</CardTitle>
         <CardDescription>
-          Write down these 12 words in order. You'll need them to recover your
+          Write down these 12 words in order. You&apos;ll need them to recover your
           wallet.
         </CardDescription>
       </CardHeader>
@@ -341,7 +342,7 @@ export default function WalletOnboarding() {
             Verify Your Recovery Phrase
           </CardTitle>
           <CardDescription>
-            Select the words in the correct order to verify you've backed up
+            Select the words in the correct order to verify you&apos;ve backed up
             your phrase.
           </CardDescription>
         </CardHeader>
@@ -360,7 +361,7 @@ export default function WalletOnboarding() {
                         key={index}
                         className="px-3 py-2 bg-primary text-primary-foreground rounded-lg font-medium"
                       >
-                        {word}
+                        {mnemonic[word]}
                       </div>
                     ))
                   : []}
@@ -445,7 +446,7 @@ export default function WalletOnboarding() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Connect Your Wallet</CardTitle>
         <CardDescription>
-          Choose how you'd like to connect your existing wallet.
+          Choose how you&apos;d like to connect your existing wallet.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -629,6 +630,7 @@ export default function WalletOnboarding() {
             onClick={() => {
               setCurrentStep("complete");
               localStorage.setItem("isOnboardingCompleted", "true");
+              localStorage.setItem("mnemonic", mnemonic.join(" "));
               localStorage.setItem("password", password);
             }}
             disabled={
@@ -711,7 +713,7 @@ export default function WalletOnboarding() {
   };
 
   return (
-    <div className="bg-background p-4 sm:p-6 md:p-8 flex items-center justify-center mb-6 min-h-screen">
+    <div className="bg-background p-4 sm:p-6 md:p-8 flex items-center justify-center mb-6 min-h-[calc(100vh-4rem)]">
       <div className="w-full max-w-2xl">
         {currentStep !== "welcome" &&
           currentStep !== "complete" &&

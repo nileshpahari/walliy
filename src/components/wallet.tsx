@@ -36,7 +36,7 @@ import {
   Plus,
   Check,
 } from "lucide-react";
-import { AccountDetail } from "./account-details";
+import { AccountDetail } from "@/components/account-details";
 import { useMemo } from "react";
 
 export default function WalletList() {

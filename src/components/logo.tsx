@@ -1,12 +1,14 @@
+"use client"
+
+import { Wallet } from "lucide-react"
+
 export default function Logo() {
   return (
-    <h1
-      className=" scroll-m-20 text-3xl font-bold font-arcade lg:text-4xl text-[var(--sidebar-primary)] leading-snug"
-      style={{
-        textShadow: 'var(--shadow-sm)',
-      }}
-    >
-      WALLIY
-    </h1>
+    <div className="flex items-center space-x-2">
+      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
+        <Wallet className="h-4 w-4 text-primary-foreground" />
+      </div>
+      <span className="font-semibold text-2xl">Walliy</span>
+    </div>
   )
 }

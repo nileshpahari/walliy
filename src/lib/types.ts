@@ -3,6 +3,7 @@ export interface Chain {
   name: string
   icon: string
   color: string
+  ticker: string
 }
 
 export interface WalletAccount {
@@ -14,7 +15,7 @@ export interface WalletAccount {
   chain: Chain
 }
 
-export enum Net {
+export enum Network {
     DEVNET = "devnet",
     MAINNET = "mainnet-beta",
     TESTNET = "testnet",

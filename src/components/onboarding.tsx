@@ -98,7 +98,7 @@ export default function WalletOnboarding() {
   };
 
   const renderWelcomeStep = () => (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader className="text-center pb-8">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary">
           <Wallet className="h-8 w-8 text-primary-foreground" />
@@ -125,7 +125,7 @@ export default function WalletOnboarding() {
   );
 
   const renderChooseOptionStep = () => (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Choose Your Setup</CardTitle>
         <CardDescription>
@@ -175,7 +175,7 @@ export default function WalletOnboarding() {
   );
 
   const renderCreateWalletStep = () => (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Create Your Wallet</CardTitle>
         <CardDescription>
@@ -442,7 +442,7 @@ export default function WalletOnboarding() {
   };
 
   const renderConnectWalletStep = () => (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Connect Your Wallet</CardTitle>
         <CardDescription>
@@ -520,7 +520,7 @@ export default function WalletOnboarding() {
   );
 
   const renderSecuritySetupStep = () => (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Secure Your Wallet</CardTitle>
         <CardDescription>
@@ -647,7 +647,7 @@ export default function WalletOnboarding() {
   );
 
   const renderCompleteStep = () => (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-lg mx-auto">
       <CardHeader className="text-center pb-8">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary">
           <CheckCircle className="h-8 w-8 text-primary-foreground" />

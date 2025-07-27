@@ -64,7 +64,7 @@ export function NetworkModal({ open, onOpenChange }: NetworkModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <Network className="h-5 w-5 text-primary" />

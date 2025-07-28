@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  Chain,
   CHAINS,
-  WalletAccount,
 } from "@/lib/data";
 import {
   SolWallet,
@@ -38,8 +36,14 @@ import {
 } from "lucide-react";
 import { AccountDetail } from "@/components/account-details";
 import { useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { removeWallet } from "@/features/walletSlice";
+import { truncateAddress } from "@/lib/truncateAddress";
+import {Chain, WalletAccount} from "@/lib/types";
+import { toast } from "sonner";
 
 export default function WalletList() {
+  const dispatch = useDispatch();
 const [wallets, setWallets] = useState<WalletAccount[]>([]);
 useEffect(() => {
   async function fetchBalances() {
@@ -78,13 +82,12 @@ useEffect(() => {
 
   const selectedChainData = CHAINS.find((n) => n.id === selectedChain.id);
 
-  const truncateAddress = (address: string) => {
-    return `${address.slice(0, 4)}...${address.slice(-4)}`;
-  };
-
   const copyToClipboard = async (text: string, walletId: number) => {
-    await navigator.clipboard.writeText(text);
-    setCopiedAddress(walletId);
+    if(typeof window !== "undefined") {
+      await navigator.clipboard.writeText(text);
+      toast("Address copied to clipboard");
+      setCopiedAddress(walletId);
+    }
     setTimeout(() => setCopiedAddress(null), 2000);
   };
   const filteredWallets = useMemo(() => {
@@ -120,7 +123,8 @@ useEffect(() => {
           console.log("Show private key for:", wallet.name);
           break;
         case "remove":
-          console.log("Remove wallet:", wallet.name);
+          dispatch(removeWallet(wallet));
+          toast("Wallet removed");
           setWallets(wallets.filter((w) => w.id !== wallet.id));
           localStorage.setItem("wallets", JSON.stringify(wallets.filter((w) => w.id !== wallet.id)));
           break;
@@ -128,8 +132,7 @@ useEffect(() => {
     };
 
     return !selectedWallet ? (
-      <div className="w-full max-w-md mx-auto space-y-4 min-h-[calc(100vh-4rem)]">
-        {/* Chain Selector */}
+      <div className="w-full max-w-lg mx-auto space-y-4 min-h-[calc(100vh-4rem)]">
         <Select
           value={selectedChain.id}
           onValueChange={(value) =>
@@ -140,10 +143,7 @@ useEffect(() => {
             <SelectValue>
               <div className="flex items-center space-x-2">
             
-                  {/* {selectedChainData?.icon} */}
-                  {CHAINS.find((chain) => chain.id === selectedChain.id)?.icon && (
-                    <img src={CHAINS.find((chain) => chain.id === selectedChain.id)?.icon} alt={CHAINS.find((chain) => chain.id === selectedChain.id)?.name} className="h-6 w-6" />
-                  )}
+                  <img src={selectedChainData?.icon} alt={selectedChainData?.name} className="h-6 w-6" />
                 <span>{selectedChainData?.name}</span>
               </div>
             </SelectValue>
@@ -208,7 +208,7 @@ useEffect(() => {
                       </div>
                       <div className="text-sm text-muted-foreground">
                         {wallet.balance}{" "}
-                        {selectedChainData?.name.slice(0, 3).toUpperCase()}
+                        {selectedChainData?.ticker}
                       </div>
                     </div>
 

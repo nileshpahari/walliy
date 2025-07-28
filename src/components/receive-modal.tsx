@@ -11,6 +11,7 @@ import { Copy, Check, Download, ExternalLink } from "lucide-react";
 import { useEffect } from "react";
 import { WalletAccount } from "@/lib/types";
 import QRCodeStyling from "qr-code-styling";
+import { copyToClipboard } from "@/lib/copyToClipboard";
 
 interface ReceiveModalProps {
   open: boolean;
@@ -61,11 +62,6 @@ export function ReceiveModal({
     }
   };
 
-  const copyAddress = async () => {
-    await navigator.clipboard.writeText(wallet.address);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const downloadQRCode = () => {
     if (qrCodeUrl) {
@@ -96,7 +92,7 @@ export function ReceiveModal({
               {qrCodeUrl ? (
                 <div className="relative p-4 bg-white rounded-lg border">
                   <img
-                    src={qrCodeUrl || "/placeholder.svg"}
+                    src={qrCodeUrl}
                     alt="Wallet QR Code"
                     className="w-48 h-48"
                   />
@@ -134,9 +130,9 @@ export function ReceiveModal({
             </div>
 
             <Button
-              onClick={copyAddress}
+              onClick={()=>copyToClipboard(wallet.address, setCopied)}
               variant="outline"
-              className="w-full bg-transparent"
+              className="w-full bg-transparent cursor-pointer"
             >
               {copied ? (
                 <>

@@ -12,6 +12,7 @@ import { Transactions } from "@/components/transactions";
 import { sendSol } from "@/lib/sendSol";
 import { sendEth } from "@/lib/sendEth";
 import { toast } from "sonner";
+import { copyToClipboard } from "@/lib/copyToClipboard";
 interface AccountDetailProps {
   wallet: WalletAccount;
   onBack: () => void;
@@ -20,18 +21,7 @@ export function AccountDetail({ wallet, onBack }: AccountDetailProps) {
   // states
   const [showSendModal, setShowSendModal] = useState(false);
   const [showReceiveModal, setShowReceiveModal] = useState(false);
-  const [copiedItem, setCopiedItem] = useState<string | null>(null);
-
-  // functions
-  const copyToClipboard = async (text: string, item: string) => {
-    if(typeof window !== "undefined") {
-      await navigator.clipboard.writeText(text);
-      setCopiedItem(item);
-      toast("Address copied to clipboard");
-      setTimeout(() => setCopiedItem(null), 2000);
-    }
-  };
-
+  const [copied, setCopied] = useState<boolean>(false);
   return (
     <>
       <div className="w-full max-w-lg mx-auto space-y-6 min-h-[calc(100vh-4rem)]">
@@ -40,7 +30,7 @@ export function AccountDetail({ wallet, onBack }: AccountDetailProps) {
             size="sm"
             variant="ghost"
             onClick={onBack}
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 cursor-pointer hover:text-primary hover:bg-transparent dark:hover:bg-transparent"
           >
             <ArrowLeft className="h-4 w-4" />
           </Button>
@@ -62,10 +52,10 @@ export function AccountDetail({ wallet, onBack }: AccountDetailProps) {
                   className="h-4 w-4 p-0 cursor-pointer hover:text-primary hover:bg-transparent dark:hover:bg-transparent"
                   onClick={(e) => {
                     e.stopPropagation();
-                    copyToClipboard(wallet.address, "address");
+                    copyToClipboard(wallet.address, setCopied);
                   }}
                 >
-                  {copiedItem === "address" ? (
+                  {copied ? (
                     <Check className="h-3 w-3 text-primary" />
                   ) : (
                     <Copy className="h-3 w-3" />

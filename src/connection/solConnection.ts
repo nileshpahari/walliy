@@ -1,9 +1,9 @@
 import { Connection, clusterApiUrl } from "@solana/web3.js";
-import { Net } from "../lib/types";
+import { Network } from "../lib/types";
 
 const createConnection = () => {
   const chain =
-  process.env.NODE_ENV === "development" ? Net.DEVNET : Net.MAINNET;
+  process.env.NODE_ENV === "development" ? Network.DEVNET : Network.MAINNET;
   return new Connection(clusterApiUrl(chain), "confirmed");
 };
 

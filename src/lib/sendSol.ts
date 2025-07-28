@@ -14,6 +14,7 @@ export const sendSol = async (sender: string, recipient: string, amount: number)
     const signature = await connection.sendRawTransaction(transaction.serialize());
     return { success: true, message: "Transaction sent successfully!", txHash: signature };
     } catch (error) {
+        console.error("Error sending transaction:", error);
         return { success: false, message: "Transaction failed. Please try again.", txHash: "" };
     }
 }

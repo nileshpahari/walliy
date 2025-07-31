@@ -26,7 +26,6 @@ import {
   Lock,
   CheckCircle,
   Plus,
-  Download,
 } from "lucide-react";
 import { getMnemonic } from "@/app/actions/generateMnemonic";
 import {
@@ -45,7 +44,13 @@ type OnboardingStep =
   | "security-setup"
   | "complete";
 
-export default function WalletOnboarding() {
+interface WalletOnboardingProps {
+  setOnboarding: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function WalletOnboarding({
+  setOnboarding,
+}: WalletOnboardingProps) {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>("welcome");
   const [walletType, setWalletType] = useState<"create" | "connect" | null>(
     null
@@ -109,8 +114,8 @@ export default function WalletOnboarding() {
           Welcome to SecureWallet
         </CardTitle>
         <CardDescription className="text-base">
-          Your gateway to the decentralized web. Let&apos;s get you set up with a
-          secure digital wallet.
+          Your gateway to the decentralized web. Let&apos;s get you set up with
+          a secure digital wallet.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -181,7 +186,8 @@ export default function WalletOnboarding() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Create Your Wallet</CardTitle>
         <CardDescription>
-          We&apos;ll generate a secure wallet for you with a unique recovery phrase.
+          We&apos;ll generate a secure wallet for you with a unique recovery
+          phrase.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -244,8 +250,8 @@ export default function WalletOnboarding() {
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Backup Your Recovery Phrase</CardTitle>
         <CardDescription>
-          Write down these 12 words in order. You&apos;ll need them to recover your
-          wallet.
+          Write down these 12 words in order. You&apos;ll need them to recover
+          your wallet.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -344,8 +350,8 @@ export default function WalletOnboarding() {
             Verify Your Recovery Phrase
           </CardTitle>
           <CardDescription>
-            Select the words in the correct order to verify you&apos;ve backed up
-            your phrase.
+            Select the words in the correct order to verify you&apos;ve backed
+            up your phrase.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -570,7 +576,7 @@ export default function WalletOnboarding() {
         </div>
 
         <div className="p-4 rounded-lg bg-muted">
-          <p className="font-medium mb-2">Password requirements:</p>
+          <p className="font-medium mb-2">Password recommendations:</p>
           <ul className="space-y-1 text-sm">
             <li
               className={`flex items-center space-x-2 ${
@@ -636,6 +642,7 @@ export default function WalletOnboarding() {
               localStorage.setItem("password", password);
               localStorage.setItem("chain", JSON.stringify(CHAINS[0]));
               localStorage.setItem("network", JSON.stringify(Network.MAINNET));
+              setOnboarding(false);
             }}
             disabled={
               !password || password !== confirmPassword || password.length < 8

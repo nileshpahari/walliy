@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import walletsReducer from "@/features/walletSlice";
 import networksReducer from "@/features/networkSlice";
 import chainsReducer from "@/features/chainSlice";
-import { walletMiddleware } from "@/middlewares/walletMiddleware";
+import { localStorageMiddleware } from "@/middlewares/localStorageMiddleware";
 
 const store = configureStore({
     reducer: {
@@ -10,7 +10,7 @@ const store = configureStore({
         networks: networksReducer,
         chains: chainsReducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(walletMiddleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

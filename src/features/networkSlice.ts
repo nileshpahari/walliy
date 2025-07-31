@@ -16,7 +16,6 @@ const networkSlice = createSlice({
   reducers: {
     setNetwork: (state, action: PayloadAction<Network>) => {
       state.selectedNetwork = action.payload;
-      localStorage.setItem("network", JSON.stringify(action.payload));
     },
   },
 });

@@ -16,7 +16,6 @@ const chainSlice = createSlice({
   reducers: {
     setChain: (state, action: PayloadAction<Chain>) => {
       state.selectedChain = action.payload;
-      localStorage.setItem("chain", JSON.stringify(action.payload));
     },
   },
 });

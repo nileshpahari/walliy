@@ -75,7 +75,6 @@ export default function WalletList() {
     if (chain.id === "solana") {
       const { address, privateKey } = genSolKeys(mnemonic, wallets.length + 1);
       const newWallet = new SolWallet(wallets.length + 1, address);
-      console.log(newWallet);
       dispatch(addWallet(newWallet));
     }
   };
@@ -89,7 +88,6 @@ export default function WalletList() {
         dispatch(renameWallet(wallet));
         break;
       case "private-key":
-        console.log("Show private key for:", wallet.name);
         break;
       case "remove":
         dispatch(removeWallet(wallet));

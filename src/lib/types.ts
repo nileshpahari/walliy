@@ -15,8 +15,31 @@ export interface WalletAccount {
   chain: Chain
 }
 
+// export interface Network {
+//     id: NetworkId
+//     url: string
+// }
+
+// export interface SolanaMainnet extends Network {
+//     id: "mainnet"
+//     url: "https://api.mainnet-beta.solana.com"
+// }
+
+// export interface SolanaDevnet extends Network {
+//     id: "devnet"
+//     url: "https://api.devnet.solana.com"
+// }
+
+// export interface SolanaTestnet extends Network {
+//     id: "testnet"
+//     url: "https://api.testnet.solana.com"
+// }
+
+// export type NetworkId = "mainnet" | "devnet" | "testnet";
+
+
 export enum Network {
-    DEVNET = "devnet",
-    MAINNET = "mainnet-beta",
-    TESTNET = "testnet",
+      MAINNET = "mainnet",
+      DEVNET = "devnet",
+      TESTNET = "testnet"
 }

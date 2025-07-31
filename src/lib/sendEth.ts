@@ -1,4 +1,4 @@
-export const sendEth = async (sender: string, recipient: string, amount: number) => {
+export const sendEth = async (connection: any, sender: string, recipient: string, amount: number) => {
     try {
         return { success: true, message: "Transaction sent successfully!", txHash: "" };
     } catch (error) {

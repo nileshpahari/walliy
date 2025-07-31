@@ -1,6 +1,6 @@
-import { PublicKey, Transaction, SystemProgram } from "@solana/web3.js";
-import connection from "@/connection/solConnection";
-export const sendSol = async (sender: string, recipient: string, amount: number) => {
+import { Connection, PublicKey, Transaction, SystemProgram } from "@solana/web3.js";
+
+export const sendSol = async (connection: Connection, sender: string, recipient: string, amount: number) => {
     try {
     const senderPublicKey = new PublicKey(sender);
     const recipientPublicKey = new PublicKey(recipient);

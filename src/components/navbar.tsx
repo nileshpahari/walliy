@@ -32,12 +32,12 @@ export function Navbar() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={() => setShowMnemonicModal(true)}>
+              <DropdownMenuItem onClick={() => setShowMnemonicModal(true)} className="cursor-pointer">
                 <Key className="mr-2 h-4 w-4" />
                 Show Mnemonic
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setShowNetworkModal(true)}>
+              <DropdownMenuItem onClick={() => setShowNetworkModal(true)} className="cursor-pointer">
                 <Network className="mr-2 h-4 w-4" />
                 Change Network
               </DropdownMenuItem>

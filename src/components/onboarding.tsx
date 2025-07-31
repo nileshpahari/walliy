@@ -33,6 +33,8 @@ import {
   getVerificationIndices,
   isVerificationCorrect,
 } from "@/lib/verification";
+import { CHAINS } from "@/lib/data";
+import { Network } from "@/lib/types";
 type OnboardingStep =
   | "welcome"
   | "choose-option"
@@ -152,7 +154,7 @@ export default function WalletOnboarding() {
           </div>
         </Button>
 
-        <Button
+        {/* <Button
           variant="outline"
           className="w-full h-auto p-6 flex flex-col items-center space-y-3 hover:bg-accent bg-transparent cursor-pointer overflow-auto"
           onClick={() => {
@@ -169,7 +171,7 @@ export default function WalletOnboarding() {
               Import wallet using recovery phrase
             </div>
           </div>
-        </Button>
+        </Button> */}
       </CardContent>
     </Card>
   );
@@ -632,6 +634,8 @@ export default function WalletOnboarding() {
               localStorage.setItem("isOnboardingCompleted", "true");
               localStorage.setItem("mnemonic", mnemonic.join(" "));
               localStorage.setItem("password", password);
+              localStorage.setItem("chain", JSON.stringify(CHAINS[0]));
+              localStorage.setItem("network", JSON.stringify(Network.MAINNET));
             }}
             disabled={
               !password || password !== confirmPassword || password.length < 8

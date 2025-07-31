@@ -3,25 +3,49 @@
 import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, Send, Download, Copy, Check, Loader, Loader2 } from "lucide-react";
-import { WalletAccount } from "@/lib/types";
+import {
+  ArrowLeft,
+  Send,
+  Download,
+  Copy,
+  Check,
+  Loader,
+  Loader2,
+} from "lucide-react";
 import { ReceiveModal } from "./receive-modal";
 import { SendModal } from "./send-modal";
 import { truncateAddress } from "@/lib/truncateAddress";
 import { Transactions } from "@/components/transactions";
 import { sendSol } from "@/lib/sendSol";
 import { sendEth } from "@/lib/sendEth";
-import { toast } from "sonner";
 import { copyToClipboard } from "@/lib/copyToClipboard";
-interface AccountDetailProps {
-  wallet: WalletAccount;
-  onBack: () => void;
-}
-export function AccountDetail({ wallet, onBack }: AccountDetailProps) {
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/store";
+import { selectWallet } from "@/features/walletSlice";
+
+export function AccountDetail() {
   // states
   const [showSendModal, setShowSendModal] = useState(false);
   const [showReceiveModal, setShowReceiveModal] = useState(false);
   const [copied, setCopied] = useState<boolean>(false);
+
+  const wallet = useSelector(
+    (state: RootState) => state.wallets.selectedWallet
+  );
+
+  const dispatch = useDispatch();
+
+  const onBack = () => {
+    dispatch(selectWallet(null));
+  };
+
+  if (!wallet)
+    return (
+      <div className="w-full max-w-lg mx-auto space-y-6 min-h-[calc(100vh-4rem)] flex items-center justify-center text-2xl">
+        Wallet not found
+      </div>
+    );
+
   return (
     <>
       <div className="w-full max-w-lg mx-auto space-y-6 min-h-[calc(100vh-4rem)]">
@@ -96,7 +120,7 @@ export function AccountDetail({ wallet, onBack }: AccountDetailProps) {
             <span className="text-sm">Receive</span>
           </Button>
         </div>
-        <Suspense fallback={<Loader2 className="animate-spin" size={48}/>}>
+        <Suspense fallback={<Loader2 className="animate-spin" size={48} />}>
           <Transactions wallet={wallet} />
         </Suspense>
       </div>

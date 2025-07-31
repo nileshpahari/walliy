@@ -18,7 +18,7 @@ export function ThemeToggler() {
     <Button
       variant="ghost"
       size="icon"
-      onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
+      onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light") }
     >
       <Sun
         className={`h-[1.2rem] w-[1.2rem] transition-transform ${

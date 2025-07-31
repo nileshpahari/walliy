@@ -8,12 +8,13 @@ import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { ArrowLeft, QrCode, Loader2, CheckCircle, XCircle, AlertTriangle } from "lucide-react"
 import { WalletAccount } from "@/lib/types"
-
+import { Connection } from "@solana/web3.js";
+import useSolConnection from "@/hooks/useSolConnection"
 interface SendModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   wallet: WalletAccount
-  onSend?: (sender: string, recipient: string, amount: number) => Promise<{ success: boolean; message: string; txHash?: string }>
+  onSend: (connection: Connection, sender: string, recipient: string, amount: number) => Promise<{ success: boolean; message: string; txHash?: string }>
 }
 
 type SendStep = "form" | "confirm" | "sending" | "success" | "error"
@@ -77,30 +78,10 @@ export function SendModal({ open, onOpenChange, wallet, onSend }: SendModalProps
   }
 
   const handleSend = async () => {
-    if (!onSend) {
-      // Mock sending process
-      setCurrentStep("sending")
-
-      // Simulate network delay
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      // Mock success/failure (80% success rate)
-      const success = Math.random() > 0.2
-
-      if (success) {
-        setTxHash("5j7HnpjCJGGsybVQn6DAK8JjNRJznKzqXeHsLHSsXMpFRnYwn8")
-        setResultMessage("Transaction sent successfully!")
-        setCurrentStep("success")
-      } else {
-        setResultMessage("Transaction failed. Please try again.")
-        setCurrentStep("error")
-      }
-      return
-    }
-
     try {
+      const connection = useSolConnection();
       setCurrentStep("sending")
-      const result = await onSend(wallet.address, recipient, amount)
+      const result = await onSend(connection, wallet.address, recipient, amount)
 
       if (result.success) {
         setTxHash(result.txHash || "")

@@ -52,6 +52,9 @@ const DUMMY_TRANSACTIONS: Transaction[] = [
 
 
 export const Transactions = ({wallet}: {wallet: WalletAccount}) => {
+  return <Card>
+    <div className="p-4 text-center">No transactions found</div>
+    </Card>
     return (
         <Card>
           <CardHeader>
